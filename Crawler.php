@@ -193,7 +193,7 @@ class Crawler implements \Countable, \IteratorAggregate
 
         try {
             // Convert charset to HTML-entities to work around bugs in DOMDocument::loadHTML()
-            $content = htmlspecialchars(mb_encode_numericentity($content, [0x80, 0x10fffff, 0, 0x1fffff], $charset));
+            $content = htmlspecialchars_decode(iconv('UTF-8', 'ISO-8859-1', htmlentities($content, ENT_COMPAT, 'UTF-8')), ENT_QUOTES);
         } catch (\Exception $e) {
         } catch (\ValueError $e) {
         } finally {
